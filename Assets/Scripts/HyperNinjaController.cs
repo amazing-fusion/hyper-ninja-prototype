@@ -6,7 +6,7 @@ using System;
 public class HyperNinjaController : MonoBehaviour {
 
     [SerializeField]
-    float _minForce = 2.0f;
+    float _sqrMinDrag = 2.0f;
 
     [SerializeField]
     float _maxSpeed = 300.0f;
@@ -110,6 +110,11 @@ public class HyperNinjaController : MonoBehaviour {
         {
             velocity.y = _minForce;
         }*/
+
+        if (velocity.sqrMagnitude < _sqrMinDrag) {
+            CancelLaunch();
+            return;
+        }
 
         //velocity =  Vector3.ClampMagnitude(velocity, _maxSpeed);
         velocity = velocity.normalized * _maxSpeed;
